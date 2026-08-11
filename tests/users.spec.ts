@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { getUserToken, getAdminToken, uniqueEmail } from "./helpers";
+import { getUserToken, getAdminToken, uniqueEmail } from "./helpers.js";
 
 test.describe("Users", () => {
   test("GET /users without a token returns 401", async ({ request }) => {
@@ -17,13 +17,20 @@ test.describe("Users", () => {
     expect(res.status()).toBe(403);
   });
 
-  test("an admin can create, read, update and delete a user", async ({ request }) => {
+  test("an admin can create, read, update and delete a user", async ({
+    request,
+  }) => {
     const adminToken = await getAdminToken(request);
     const email = uniqueEmail();
 
     const createRes = await request.post("/users", {
       headers: { Authorization: `Bearer ${adminToken}` },
-      data: { name: "Created By Admin", email, password: "12345678", role: "user" },
+      data: {
+        name: "Created By Admin",
+        email,
+        password: "12345678",
+        role: "user",
+      },
     });
     expect(createRes.status()).toBe(201);
     const created = await createRes.json();
@@ -54,7 +61,9 @@ test.describe("Users", () => {
     expect(getAfterDeleteRes.status()).toBe(404);
   });
 
-  test("creating a user without a password returns 400", async ({ request }) => {
+  test("creating a user without a password returns 400", async ({
+    request,
+  }) => {
     const adminToken = await getAdminToken(request);
 
     const res = await request.post("/users", {
@@ -65,26 +74,35 @@ test.describe("Users", () => {
     expect(res.status()).toBe(400);
   });
 
-  test("updating a user cannot change the password field", async ({ request }) => {
+  test("updating a user cannot change the password field", async ({
+    request,
+  }) => {
     const adminToken = await getAdminToken(request);
     const email = uniqueEmail();
 
     const createRes = await request.post("/users", {
       headers: { Authorization: `Bearer ${adminToken}` },
-      data: { name: "Password Test", email, password: "12345678", role: "user" },
+      data: {
+        name: "Password Test",
+        email,
+        password: "12345678",
+        role: "user",
+      },
     });
     const created = await createRes.json();
 
-    // password не входить у updateUserSchema — поле має бути проігнороване/відхилене
     const updateRes = await request.patch(`/users/${created._id}`, {
       headers: { Authorization: `Bearer ${adminToken}` },
       data: { password: "newpassword123" },
     });
 
-    // Юзер все ще має логінитись старим паролем
-    const loginRes = await request.post("/login", { data: { email, password: "12345678" } });
-    expect(loginRes.status()).toBe(200);
+    expect(updateRes.status()).toBe(400);
+    const body = await updateRes.json();
+    expect(body.message).toBe("Validation failed");
 
-    expect(updateRes.status()).not.toBe(500);
+    const loginRes = await request.post("/login", {
+      data: { email, password: "12345678" },
+    });
+    expect(loginRes.status()).toBe(200);
   });
 });

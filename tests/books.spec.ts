@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { getUserToken, getAdminToken } from "./helpers";
+import { getUserToken, getAdminToken } from "./helpers.js";
 
 test.describe("Books", () => {
   test("GET /books without a token returns 401", async ({ request }) => {
@@ -7,7 +7,7 @@ test.describe("Books", () => {
     expect(res.status()).toBe(401);
   });
 
-  test("a regular user can list and read books", async ({ request }) => {
+  test("a regular user can list books", async ({ request }) => {
     const token = await getUserToken(request);
 
     const listRes = await request.get("/books", {
@@ -56,7 +56,9 @@ test.describe("Books", () => {
     expect(getRes.status()).toBe(404);
   });
 
-  test("creating a book with a negative pageCount returns 400", async ({ request }) => {
+  test("creating a book with a negative pageCount returns 400", async ({
+    request,
+  }) => {
     const token = await getAdminToken(request);
 
     const res = await request.post("/books", {
@@ -67,7 +69,9 @@ test.describe("Books", () => {
     expect(res.status()).toBe(400);
   });
 
-  test("GET /books/:id with an invalid ObjectId returns 400, not 500", async ({ request }) => {
+  test("GET /books/:id with an invalid ObjectId returns 400, not 500", async ({
+    request,
+  }) => {
     const token = await getUserToken(request);
 
     const res = await request.get("/books/not-a-valid-id", {
