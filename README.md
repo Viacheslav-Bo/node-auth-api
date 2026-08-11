@@ -17,38 +17,39 @@ REST API with JWT authentication and role-based access control (`user` / `admin`
 
 ## Project Structure
 
+```text
 src/
-├── models/ # Mongoose models (User, Book)
+├── models/                  # Mongoose models (User, Book)
 ├── services/
-│ ├── authServices/ # Signup and login
-│ ├── bookServices/
-│ └── userServices/
+│   ├── authServices/        # Signup and login
+│   ├── bookServices/
+│   └── userServices/
 ├── controllers/
-│ ├── authControllers/
-│ ├── bookControllers/
-│ └── userControllers/
-├── routes/ # Auth, book and user routes
+│   ├── authControllers/
+│   ├── bookControllers/
+│   └── userControllers/
+├── routes/                  # Auth, book and user routes
 ├── middlewares/
-│ ├── authenticate.ts # JWT authentication
-│ ├── authorize.ts # Role-based authorization
-│ ├── validateBody.ts # Zod request validation
-│ ├── errorHandler.ts
-│ └── notFoundHandler.ts
-├── validation/ # Zod schemas
-├── constants/ # Application constants
-├── types/ # Express Request type augmentation
-├── db/ # MongoDB connection
-├── app.ts # Express application
-└── server.ts # Server startup and process handlers
+│   ├── authenticate.ts      # JWT authentication
+│   ├── authorize.ts         # Role-based authorization
+│   ├── validateBody.ts      # Zod request validation
+│   ├── errorHandler.ts
+│   └── notFoundHandler.ts
+├── validation/              # Zod schemas
+├── constants/               # Application constants
+├── types/                   # Express Request type augmentation
+├── db/                      # MongoDB connection
+├── app.ts                   # Express application
+└── server.ts                # Server startup and process handlers
 
 scripts/
-└── seed.ts # Creates the initial admin user
+└── seed.ts                  # Creates the initial admin user
 
 tests/
-└── \*.spec.ts # Playwright API tests
+└── *.spec.ts                # Playwright API tests
 
-tsconfig.json # TypeScript configuration
-tsconfig.build.json # Build configuration for src/
+tsconfig.json                # TypeScript configuration
+tsconfig.build.json          # Build configuration for src/
 
 ## Getting Started
 
@@ -188,3 +189,4 @@ npm test # Placeholder test command
 - Dedicated password change endpoint
 - Rate limiting for authentication endpoints
 - Pagination and filtering for books and users
+```
