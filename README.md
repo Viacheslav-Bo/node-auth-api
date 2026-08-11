@@ -50,6 +50,7 @@ tests/
 
 tsconfig.json                # TypeScript configuration
 tsconfig.build.json          # Build configuration for src/
+```
 
 ## Getting Started
 
@@ -107,6 +108,7 @@ Only an authenticated admin can create users through `POST /users` and assign th
 
 ## Routes
 
+```
 | Method | Endpoint     | Access        |
 | ------ | ------------ | ------------- |
 | POST   | `/signup`    | Public        |
@@ -121,6 +123,7 @@ Only an authenticated admin can create users through `POST /users` and assign th
 | GET    | `/users/:id` | Admin         |
 | PATCH  | `/users/:id` | Admin         |
 | DELETE | `/users/:id` | Admin         |
+```
 
 ## Error Handling
 
@@ -189,4 +192,3 @@ npm test # Placeholder test command
 - Dedicated password change endpoint
 - Rate limiting for authentication endpoints
 - Pagination and filtering for books and users
-```
