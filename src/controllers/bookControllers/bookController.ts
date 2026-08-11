@@ -20,7 +20,6 @@ export const getBookById = async (
 };
 
 export const createBook = async (req: Request, res: Response) => {
-  const { name, author, pageCount } = req.body;
   const book = await bookService.createBook(req.body);
   res.status(201).json(book);
 };
