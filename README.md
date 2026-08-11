@@ -180,11 +180,12 @@ For the admin login request, use the password configured in `ADMIN_PASSWORD`.
 
 ## Available Scripts
 
-npm run dev # Start development server
-npm run build # Build the application
-npm start # Start production server
-npm run seed # Create the initial admin
-npm test # Placeholder test command
+```bash
+npm run dev      # Start development server
+npm run build    # Build the application
+npm start        # Start production server
+npm run seed     # Create the initial admin
+```
 
 ## What I Would Add With More Time
 
