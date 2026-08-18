@@ -9,6 +9,7 @@ const connectDB = async (): Promise<void> => {
 
   await mongoose.connect(mongoUrl);
   console.log("✅ MongoDB connected");
+  console.log("Поточна база даних:", mongoose.connection.name);
 };
 
 export default connectDB;
