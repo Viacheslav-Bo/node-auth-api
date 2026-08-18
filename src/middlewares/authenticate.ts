@@ -7,17 +7,12 @@ export const authenticate = (
   _res: Response,
   next: NextFunction,
 ) => {
-  const authHeader = req.headers.authorization;
+  const token = req.cookies?.accessToken;
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  if (!token) {
     return next(
       createHttpError(401, "Authorization header missing or invalid"),
     );
-  }
-
-  const token = authHeader.split(" ")[1];
-  if (!token) {
-    return next(createHttpError(401, "Access token is missing"));
   }
 
   const secret = process.env.JWT_SECRET;
@@ -33,6 +28,6 @@ export const authenticate = (
     req.user = { id: payload.id, role: payload.role };
     next();
   } catch (err) {
-    next(err);
+    next(createHttpError(401, "Invalid or expired access token"));
   }
 };
