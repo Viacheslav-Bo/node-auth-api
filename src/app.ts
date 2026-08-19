@@ -7,6 +7,8 @@ import { notFoundHandler } from "./middlewares/notFoundHandler.js";
 import authRoutes from "./routes/authRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import customerRoutes from "./routes/customerRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 
 import morgan from "morgan";
 
@@ -24,6 +26,10 @@ app.get("/", (req, res) => {
 app.use(authRoutes);
 app.use(bookRoutes);
 app.use(userRoutes);
+app.use(customerRoutes);
+app.use(orderRoutes);
+// app.use(productRoutes);
+// app.use(supplierRoutes);
 
 app.use(notFoundHandler);
 
