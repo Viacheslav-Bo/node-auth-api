@@ -3,7 +3,7 @@ import * as customerService from "../services/customerService.js";
 import createHttpError from "http-errors";
 
 export const getAllCustomers = async (req: Request, res: Response) => {
-  const customers = await customerService.getAllCustomers();
+  const customers = await customerService.getAllCustomers(req.query);
   res.json(customers);
 };
 
