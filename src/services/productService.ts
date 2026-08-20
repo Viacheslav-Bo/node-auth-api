@@ -16,13 +16,27 @@ interface ProductFilter {
 }
 
 export const getAllProducts = async (query: GetProductsQuery) => {
-  const { name, suppliers, stock, price, search, sortBy, sortProduct } = query;
+  const {
+    name,
+    category,
+    suppliers,
+    stock,
+    price,
+    search,
+    sortBy,
+    sortProduct,
+  } = query;
 
   const filter: ProductFilter = {};
+
+  if (name) {
+    filter.name = { $regex: name, $options: "i" };
+  }
 
   if (search) {
     filter.name = { $regex: search, $options: "i" };
   }
+  if (category) filter.category = category;
   if (suppliers) filter.suppliers = suppliers;
   if (stock) filter.stock = stock;
   if (price) filter.price = price;
@@ -38,7 +52,19 @@ export const getProductById = async (id: string) => {
 };
 
 export const createProduct = async (data: CreateProductData) => {
-  return await Product.create(data);
+  let productId = data.id;
+  if (!productId) {
+    const result = await Product.aggregate([
+      { $addFields: { numericId: { $toInt: "$id" } } },
+      { $sort: { numericId: -1 } },
+      { $limit: 1 },
+    ]);
+
+    const lastId = result.length > 0 ? Number(result[0].id) : 0;
+    productId = String(isNaN(lastId) ? 1 : lastId + 1);
+  }
+
+  return await Product.create({ ...data, id: productId });
 };
 
 export const updateProduct = async (
