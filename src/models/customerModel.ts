@@ -2,6 +2,7 @@ import { Schema, model, type InferSchemaType } from "mongoose";
 
 const customerSchema = new Schema(
   {
+    photo: { type: String },
     name: { type: String, required: true, trim: true },
     email: {
       type: String,
@@ -13,7 +14,6 @@ const customerSchema = new Schema(
     spent: { type: Number, default: 0 },
     phone: { type: String },
     address: { type: String },
-    photo: { type: String },
   },
   { timestamps: { createdAt: "register_date", updatedAt: false } },
 );

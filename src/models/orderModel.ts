@@ -9,7 +9,15 @@ const orderSchema = new Schema(
     price: { type: Number, required: true },
     status: {
       type: String,
-      enum: ["Pending", "Processing", "Completed", "Cancelled"],
+      enum: [
+        "Pending",
+        "Processing",
+        "Completed",
+        "Cancelled",
+        "Confirmed",
+        "Shipped",
+        "Delivered",
+      ],
       default: "Pending",
     },
     order_date: { type: String, required: true },

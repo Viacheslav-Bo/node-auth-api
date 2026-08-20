@@ -8,7 +8,7 @@ export const getAllCustomers = async () => {
 export const getCustomerById = async (customerId: string) => {
   const customer = await Customer.findById(customerId);
   if (!customer) {
-    throw createHttpError(404, "User not found");
+    throw createHttpError(404, "Customer not found");
   }
   return customer;
 };

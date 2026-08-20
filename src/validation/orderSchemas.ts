@@ -18,9 +18,20 @@ export const orderSchema = z.object({
       "Invalid price format (e.g., 890.66)",
     ),
 
-  status: z.enum(["Pending", "Processing", "Completed", "Cancelled"], {
-    message: "Invalid order status",
-  }),
+  status: z.enum(
+    [
+      "Pending",
+      "Processing",
+      "Completed",
+      "Cancelled",
+      "Confirmed",
+      "Shipped",
+      "Delivered",
+    ],
+    {
+      message: "Invalid order status",
+    },
+  ),
 
   order_date: z.string().min(1, "Order date is required"),
 });
@@ -29,7 +40,15 @@ export type CreateOrderData = z.infer<typeof orderSchema>;
 
 export const getOrdersQuerySchema = z.object({
   status: z
-    .enum(["Pending", "Processing", "Completed", "Cancelled"])
+    .enum([
+      "Pending",
+      "Processing",
+      "Completed",
+      "Cancelled",
+      "Confirmed",
+      "Shipped",
+      "Delivered",
+    ])
     .optional(),
   search: z.string().trim().optional(),
   sortBy: z.string().optional(),

@@ -6,7 +6,7 @@ export const supplierSchema = z.object({
   suppliers: z.string().min(1, "Supplier is required"),
   date: z.string().min(1, "Date is required"),
   amount: z.number().positive("Amount must be positive"),
-  status: z.enum(["Active", "Inactive", "Pending", "Completed"], {
+  status: z.enum(["Active", "Deactive"], {
     message: "Invalid status",
   }),
 });

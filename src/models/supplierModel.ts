@@ -9,7 +9,7 @@ const supplierSchema = new Schema(
     amount: { type: Number, required: true },
     status: {
       type: String,
-      enum: ["Active", "Inactive", "Pending", "Completed"],
+      enum: ["Active", "Deactive"],
       default: "Active",
     },
   },
