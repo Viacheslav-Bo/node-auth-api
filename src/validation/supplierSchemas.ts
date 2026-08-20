@@ -1,13 +1,13 @@
 import { z } from "zod";
 
 export const supplierSchema = z.object({
-  name: z.string().trim().min(2, "Name is required"),
-  address: z.string().min(2, "Address is required"),
+  name: z.string().min(1, "Name is required"),
+  address: z.string().min(1, "Address is required"),
   suppliers: z.string().min(1, "Supplier is required"),
   date: z.string().min(1, "Date is required"),
-  amount: z.number().positive("Amount must be positive"),
+  amount: z.string().min(1, "Amount is required"),
   status: z.enum(["Active", "Deactive"], {
-    message: "Invalid status",
+    message: "Status must be either 'Active' or 'Deactive'",
   }),
 });
 

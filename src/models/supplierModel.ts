@@ -6,12 +6,8 @@ const supplierSchema = new Schema(
     address: { type: String, required: true },
     suppliers: { type: String, required: true },
     date: { type: String, required: true },
-    amount: { type: Number, required: true },
-    status: {
-      type: String,
-      enum: ["Active", "Deactive"],
-      default: "Active",
-    },
+    amount: { type: String, required: true },
+    status: { type: String, required: true, enum: ["Active", "Deactive"] },
   },
   { timestamps: true },
 );
