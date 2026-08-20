@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import * as userService from "../../services/userServices";
+import * as userService from "../../services/userServices/userService.js";
 import createHttpError from "http-errors";
 
 export const getAllUsers = async (req: Request, res: Response) => {
