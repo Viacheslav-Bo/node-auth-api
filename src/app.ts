@@ -8,6 +8,8 @@ import authRoutes from "./routes/authRoutes.js";
 import customerRoutes from "./routes/customerRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import supplierRoutes from "./routes/supplierRoutes.js";
+import dashboardRouter from "./routes/dashboardRoutes.js";
 
 import morgan from "morgan";
 
@@ -31,7 +33,8 @@ app.use(authRoutes);
 app.use(customerRoutes);
 app.use(orderRoutes);
 app.use(productRoutes);
-// app.use(supplierRoutes);
+app.use(supplierRoutes);
+app.use(dashboardRouter);
 
 app.use(notFoundHandler);
 
