@@ -10,9 +10,7 @@ export const authenticate = (
   const token = req.cookies?.accessToken;
 
   if (!token) {
-    return next(
-      createHttpError(401, "Authorization header missing or invalid"),
-    );
+    return next(createHttpError(401, "Authorization invalid"));
   }
 
   const secret = process.env.JWT_SECRET;

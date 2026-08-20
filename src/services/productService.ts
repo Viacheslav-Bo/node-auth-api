@@ -29,10 +29,6 @@ export const getAllProducts = async (query: GetProductsQuery) => {
 
   const filter: ProductFilter = {};
 
-  if (name) {
-    filter.name = { $regex: name, $options: "i" };
-  }
-
   if (search) {
     filter.name = { $regex: search, $options: "i" };
   }

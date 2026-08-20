@@ -10,7 +10,7 @@ const router = Router();
 router.use(authenticate);
 router.use(authorize("admin"));
 
-router.get("/customers", authenticate, getAllCustomers);
-router.get("/customers/:customerId", authenticate, getCustomerById);
+router.get("/customers", getAllCustomers);
+router.get("/customers/:customerId", getCustomerById);
 
 export default router;

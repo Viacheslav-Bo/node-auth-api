@@ -3,7 +3,7 @@ import { Customer } from "../models/customerModel.js";
 import {
   parsePaginationParams,
   formatPaginatedResponse,
-} from "../helper/paginationHelper.js";
+} from "../helpers/paginationHelper.js";
 
 interface CustomerQuery {
   page?: string;

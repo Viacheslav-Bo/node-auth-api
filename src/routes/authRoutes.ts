@@ -13,7 +13,7 @@ const router = Router();
 router.get("/user/user-info", authenticate, getUserInfoController);
 router.post("/user/signup", validateBody(signupSchema), signupController);
 router.post("/user/login", validateBody(loginSchema), loginController);
-router.get("/user/logout", authenticate, logoutController);
+router.post("/user/logout", authenticate, logoutController);
 router.post("/user/refresh", refreshController);
 
 export default router;

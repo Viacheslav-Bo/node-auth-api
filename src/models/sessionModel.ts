@@ -12,6 +12,7 @@ const sessionSchema = new Schema<ISession>(
       type: Schema.Types.ObjectId,
       required: true,
       ref: "User",
+      unique: true,
     },
     refreshToken: {
       type: String,
@@ -27,5 +28,8 @@ const sessionSchema = new Schema<ISession>(
     versionKey: false,
   },
 );
+
+// TTL-індекс: MongoDB сама видалить документ, коли настане час `refreshTokenValidUntil`
+sessionSchema.index({ refreshTokenValidUntil: 1 }, { expireAfterSeconds: 0 });
 
 export const Session = model<ISession>("Session", sessionSchema);

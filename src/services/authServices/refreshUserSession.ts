@@ -2,10 +2,8 @@ import jwt from "jsonwebtoken";
 import createHttpError from "http-errors";
 import { Session } from "../../models/sessionModel.js";
 import User from "../../models/userModel.js";
-import {
-  FIFTEEN_MINUTES,
-  TWO_WEEKS,
-} from "../../constants/cookiesSesionLife.js";
+import { TWO_WEEKS } from "../../constants/cookiesSesionLife.js";
+import { createAuthTokens } from "../../helpers/authHelpers.js";
 
 export const refreshUserSession = async (
   sessionId: string,
@@ -26,9 +24,8 @@ export const refreshUserSession = async (
   }
 
   const refreshSecret = process.env.JWT_REFRESH_SECRET;
-  const accessSecret = process.env.JWT_SECRET;
 
-  if (!refreshSecret || !accessSecret) {
+  if (!refreshSecret) {
     throw createHttpError(500, "JWT secrets are not configured");
   }
 
@@ -44,17 +41,8 @@ export const refreshUserSession = async (
     throw createHttpError(401, "User not found");
   }
 
-  const newAccessToken = jwt.sign(
-    { id: user._id.toString(), role: user.role },
-    accessSecret,
-    {
-      expiresIn: process.env.JWT_EXPIRES_IN ?? FIFTEEN_MINUTES,
-    } as jwt.SignOptions,
-  );
-
-  const newRefreshToken = jwt.sign({ id: user._id.toString() }, refreshSecret, {
-    expiresIn: TWO_WEEKS,
-  } as jwt.SignOptions);
+  const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+    createAuthTokens(user);
 
   await Session.findByIdAndUpdate(session._id, {
     refreshToken: newRefreshToken,
